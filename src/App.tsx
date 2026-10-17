@@ -3,8 +3,17 @@ import Form from './components/Form'
 import './App.css'
 import type { FormValues } from './types'
 
-function sendFormData() {
-  console.log('send form data')
+async function sendFormData(formdata: FormValues) {
+  const response = await fetch('http://localhost:3001', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formdata),
+  })
+  const message = await response.json()
+
+  console.log('msg: ', message)
 }
 
 function App() {
@@ -12,12 +21,11 @@ function App() {
 
   useEffect(() => {
     if (form) {
-      sendFormData()
+      sendFormData(form)
     }
   }, [form, setForm])
 
   const onSubmitHandler = (formValues: FormValues) => {
-    console.log(formValues)
     setForm({ ...formValues })
   }
 
