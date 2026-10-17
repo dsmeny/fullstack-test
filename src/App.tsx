@@ -1,23 +1,31 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
 import './App.css'
 
 function App() {
   return (
     <>
-      <section id="center"></section>
-
-      <div className="ticks"></div>
-
+      <section id="center">
+        <form id="input-form">
+          <div>
+            <label>First name</label>
+            <input id="fname" name="first" placeholder="first name" />
+          </div>
+          <div>
+            <label>Last name</label>
+            <input id="lname" name="last" placeholder="last name" />
+          </div>
+          <div>
+            <label>Age</label>
+            <input id="age" name="age" placeholder="your age" />
+          </div>
+          <div>
+            <button type="submit">Submit</button>
+          </div>
+        </form>
+      </section>
       <section id="next-steps">
         <div id="docs"></div>
         <div id="social"></div>
       </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
     </>
   )
 }
