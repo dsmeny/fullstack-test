@@ -1,26 +1,30 @@
+import { useState, useEffect } from 'react'
+import Form from './components/Form'
 import './App.css'
+import type { FormValues } from './types'
+
+function sendFormData() {
+  console.log('send form data')
+}
 
 function App() {
+  const [form, setForm] = useState<FormValues | null>(null)
+
+  useEffect(() => {
+    if (form) {
+      sendFormData()
+    }
+  }, [form, setForm])
+
+  const onSubmitHandler = (formValues: FormValues) => {
+    console.log(formValues)
+    setForm({ ...formValues })
+  }
+
   return (
     <>
       <section id="center">
-        <form id="input-form">
-          <div>
-            <label>First name</label>
-            <input id="fname" name="first" placeholder="first name" />
-          </div>
-          <div>
-            <label>Last name</label>
-            <input id="lname" name="last" placeholder="last name" />
-          </div>
-          <div>
-            <label>Age</label>
-            <input id="age" name="age" placeholder="your age" />
-          </div>
-          <div>
-            <button type="submit">Submit</button>
-          </div>
-        </form>
+        <Form onSubmitHandler={onSubmitHandler} />
       </section>
       <section id="next-steps">
         <div id="docs"></div>
