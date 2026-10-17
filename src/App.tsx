@@ -4,7 +4,7 @@ import './App.css'
 function App() {
   const fnameRef = useRef<HTMLInputElement>(null)
   const lnameRef = useRef<HTMLInputElement>(null)
-  const ageRef = useRef<HTMLButtonElement>(null)
+  const ageRef = useRef<HTMLInputElement>(null)
 
   function onSubmitHandler(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault()
