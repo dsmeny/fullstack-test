@@ -1,21 +1,46 @@
+import { useRef } from 'react'
 import './App.css'
 
 function App() {
+  const fnameRef = useRef<HTMLInputElement>(null)
+  const lnameRef = useRef<HTMLInputElement>(null)
+  const ageRef = useRef<HTMLButtonElement>(null)
+
+  function onSubmitHandler(e: React.SubmitEvent<HTMLFormElement>) {
+    e.preventDefault()
+
+    const firstName = fnameRef.current?.value || ''
+    const lastName = lnameRef.current?.value || ''
+    const age = ageRef.current?.value || 0
+
+    console.log({ firstName, lastName, age })
+  }
+
   return (
     <>
       <section id="center">
-        <form id="input-form">
+        <form id="input-form" onSubmit={onSubmitHandler}>
           <div>
-            <label>First name</label>
-            <input id="fname" name="first" placeholder="first name" />
+            <label htmlFor="first">First name</label>
+            <input
+              id="fname"
+              name="first"
+              placeholder="first name"
+              ref={fnameRef}
+            />
           </div>
           <div>
-            <label>Last name</label>
-            <input id="lname" name="last" placeholder="last name" />
+            <label htmlFor="last">Last name</label>
+            <input
+              id="lname"
+              name="last"
+              placeholder="last name"
+              ref={lnameRef}
+            />
           </div>
           <div>
-            <label>Age</label>
-            <input id="age" name="age" placeholder="your age" />
+            <label htmlFor="age">Age</label>
+            <input id="age" name="age" placeholder="your age" ref={ageRef} />
           </div>
           <div>
             <button type="submit">Submit</button>
