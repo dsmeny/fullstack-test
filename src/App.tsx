@@ -1,51 +1,23 @@
-import { useRef } from 'react'
+import { useState } from 'react'
+import Form from './components/Form'
 import './App.css'
+import type { FormValues } from './types'
 
 function App() {
-  const fnameRef = useRef<HTMLInputElement>(null)
-  const lnameRef = useRef<HTMLInputElement>(null)
-  const ageRef = useRef<HTMLInputElement>(null)
+  const [form, setForm] = useState<FormValues>({
+    firstName: '',
+    lastName: '',
+    age: 0,
+  })
 
-  function onSubmitHandler(e: React.SubmitEvent<HTMLFormElement>) {
-    e.preventDefault()
-
-    const firstName = fnameRef.current?.value || ''
-    const lastName = lnameRef.current?.value || ''
-    const age = ageRef.current?.value || 0
-
-    console.log({ firstName, lastName, age })
+  const onSubmitHandler = (formValues: FormValues) => {
+    console.log(formValues)
   }
 
   return (
     <>
       <section id="center">
-        <form id="input-form" onSubmit={onSubmitHandler}>
-          <div>
-            <label htmlFor="first">First name</label>
-            <input
-              id="fname"
-              name="first"
-              placeholder="first name"
-              ref={fnameRef}
-            />
-          </div>
-          <div>
-            <label htmlFor="last">Last name</label>
-            <input
-              id="lname"
-              name="last"
-              placeholder="last name"
-              ref={lnameRef}
-            />
-          </div>
-          <div>
-            <label htmlFor="age">Age</label>
-            <input id="age" name="age" placeholder="your age" ref={ageRef} />
-          </div>
-          <div>
-            <button type="submit">Submit</button>
-          </div>
-        </form>
+        <Form onSubmitHandler={onSubmitHandler} />
       </section>
       <section id="next-steps">
         <div id="docs"></div>
