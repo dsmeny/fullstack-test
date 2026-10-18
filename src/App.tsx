@@ -11,9 +11,8 @@ async function sendFormData(formdata: FormValues) {
     },
     body: JSON.stringify(formdata),
   })
-  const message = await response.json()
 
-  console.log('msg: ', message)
+  await response.json()
 }
 
 function App() {
