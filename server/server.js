@@ -21,10 +21,24 @@ app.get('/', async (req, res) => {
   }
 })
 
-app.post('/', (req, res) => {
-  const body = req.body
-  console.log('body: ', body)
-  res.status(200).send({ messageBody: body })
+app.post('/', async (req, res) => {
+  const { firstName, lastName, age } = req.body ?? {}
+
+  if (!firstName || !lastName) {
+    return res.status(400).json({ error: 'first name and last name required' })
+  }
+  try {
+    const result = await db.execute({
+      sql: `INSERT INTO users (first_name, last_name, age) 
+            VALUES(?,?,?) 
+            RETURNING id, first_name, last_name, age, created_at`,
+      args: [firstName, lastName, age],
+    })
+    res.status(201).send({ message: result.rows[0] })
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: 'Database query failed' })
+  }
 })
 
 app.listen(PORT, () => {
