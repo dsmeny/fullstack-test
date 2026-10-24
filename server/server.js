@@ -13,8 +13,8 @@ app.use(cors())
 
 app.get('/', async (req, res) => {
   try {
-    const result = await db.execute("SELECT 'hello from server' AS message")
-    res.status(200).json({ message: result.rows[0].message })
+    const result = await db.execute(`SELECT * FROM users`)
+    res.status(200).json({ message: result.rows })
   } catch (err) {
     console.error(err)
     res.status(500).json({ error: 'Database query failed' })
