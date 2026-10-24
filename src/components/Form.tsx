@@ -13,14 +13,10 @@ function Form({ onSubmitHandler }: FormProps) {
   function submitHandler(e: React.SubmitEvent<HTMLFormElement>) {
     e.preventDefault()
 
-    const firstName = fnameRef.current?.value || ''
-    const lastName = lnameRef.current?.value || ''
-    const age = Number(ageRef.current?.value) || 0
-
     const formValues = {
-      firstName,
-      lastName,
-      age,
+      firstName: fnameRef.current?.value || '',
+      lastName: lnameRef.current?.value || '',
+      age: Number(ageRef.current?.value) || 0,
     }
 
     onSubmitHandler(formValues)
