@@ -1,5 +1,4 @@
 import express from 'express'
-import cors from 'cors'
 import morgan from 'morgan'
 import { db } from './db.js'
 
@@ -9,9 +8,8 @@ const PORT = process.env.PORT ?? 3001
 
 app.use(express.json())
 app.use(morgan('dev'))
-app.use(cors())
 
-app.get('/', async (req, res) => {
+app.get('/api/users', async (req, res) => {
   try {
     const result = await db.execute(`SELECT * FROM users`)
     res.status(200).json({ message: result.rows })
@@ -21,7 +19,7 @@ app.get('/', async (req, res) => {
   }
 })
 
-app.post('/', async (req, res) => {
+app.post('/api/users', async (req, res) => {
   const { firstName, lastName, age } = req.body ?? {}
 
   if (!firstName || !lastName) {
