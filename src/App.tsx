@@ -8,11 +8,25 @@ const DB_URL = '/api'
 
 function App() {
   const [users, setUsers] = useState([])
+  const [reload, setReload] = useState(false)
 
   async function getDbUsers() {
     const response = await fetch(DB_URL)
     const dbUsers = await response.json()
     setUsers(dbUsers.message)
+  }
+
+  async function deleteUser(id) {
+    const response = await fetch(`${DB_URL}/${id}`, {
+      method: 'DELETE',
+    })
+    const message = await response.json()
+
+    alert(`user ${message} was deleted`)
+
+    setTimeout(() => {
+      setReload((prev) => !prev)
+    }, 3000)
   }
 
   async function sendFormData(formdata: FormValues) {
@@ -39,7 +53,7 @@ function App() {
 
   useEffect(() => {
     getDbUsers()
-  }, [])
+  }, [reload])
 
   return (
     <>
@@ -54,7 +68,9 @@ function App() {
             <ul className="user-list">
               {/* map users here: one <li className="user-row"> per user */}
               {users ? (
-                users.map((u) => <Users user={u} key={u.id} />)
+                users.map((u) => (
+                  <Users user={u} key={u.id} deleteHandler={deleteUser} />
+                ))
               ) : (
                 <span>no users</span>
               )}

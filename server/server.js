@@ -39,6 +39,24 @@ app.post('/api', async (req, res) => {
   }
 })
 
+app.delete('/api/:id', async (req, res) => {
+  const id = req.params.id
+
+  if (!id) {
+    return res.status(400).json({ error: 'user does not exist in our db' })
+  }
+  try {
+    const result = await db.execute({
+      sql: `DELETE FROM users WHERE id = ?`,
+      args: [id],
+    })
+    res.status(201).send({ message: result.rows[0] })
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: 'Database query failed' })
+  }
+})
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
