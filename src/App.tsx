@@ -26,7 +26,7 @@ function App() {
 
     setTimeout(() => {
       setReload((prev) => !prev)
-    }, 3000)
+    }, 1000)
   }
 
   async function sendFormData(formdata: FormValues) {
