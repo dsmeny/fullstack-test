@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "predev": "kill $(lsof -ti tcp:3001) 2>/dev/null || true",
     "dev": "nodemon server.js"
   },
   "keywords": [],

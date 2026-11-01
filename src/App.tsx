@@ -4,7 +4,7 @@ import './App.css'
 import type { FormValues } from './types'
 import Users from './components/Users'
 
-const DB_URL = '/api/users'
+const DB_URL = '/api'
 
 function App() {
   const [users, setUsers] = useState([])

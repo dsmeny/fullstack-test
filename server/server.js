@@ -9,7 +9,7 @@ const PORT = process.env.PORT ?? 3001
 app.use(express.json())
 app.use(morgan('dev'))
 
-app.get('/api/users', async (req, res) => {
+app.get('/api', async (req, res) => {
   try {
     const result = await db.execute(`SELECT * FROM users`)
     res.status(200).json({ message: result.rows })
@@ -19,7 +19,7 @@ app.get('/api/users', async (req, res) => {
   }
 })
 
-app.post('/api/users', async (req, res) => {
+app.post('/api', async (req, res) => {
   const { firstName, lastName, age } = req.body ?? {}
 
   if (!firstName || !lastName) {
