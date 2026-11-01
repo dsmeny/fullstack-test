@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 
-function Users({ user }) {
-  const { first_name: first, last_name: last, age } = user
+function Users({ user, deleteHandler }) {
+  const { first_name: first, last_name: last, age, id } = user
 
   const firstRef = useRef(null)
   const lastRef = useRef(null)
@@ -44,7 +44,13 @@ function Users({ user }) {
         <button type="button" className="btn-update" onClick={handleUpdate}>
           Update
         </button>
-        <button type="button" className="btn-delete">
+        <button
+          type="button"
+          className="btn-delete"
+          onClick={() => {
+            deleteHandler(id)
+          }}
+        >
           Delete
         </button>
       </div>

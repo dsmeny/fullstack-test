@@ -9,7 +9,7 @@ const PORT = process.env.PORT ?? 3001
 app.use(express.json())
 app.use(morgan('dev'))
 
-app.get('/api/users', async (req, res) => {
+app.get('/api', async (req, res) => {
   try {
     const result = await db.execute(`SELECT * FROM users`)
     res.status(200).json({ message: result.rows })
@@ -19,7 +19,7 @@ app.get('/api/users', async (req, res) => {
   }
 })
 
-app.post('/api/users', async (req, res) => {
+app.post('/api', async (req, res) => {
   const { firstName, lastName, age } = req.body ?? {}
 
   if (!firstName || !lastName) {
@@ -31,6 +31,24 @@ app.post('/api/users', async (req, res) => {
             VALUES(?,?,?) 
             RETURNING id, first_name, last_name, age, created_at`,
       args: [firstName, lastName, age],
+    })
+    res.status(201).send({ message: result.rows[0] })
+  } catch (err) {
+    console.error(err)
+    res.status(500).json({ error: 'Database query failed' })
+  }
+})
+
+app.delete('/api/:id', async (req, res) => {
+  const id = req.params.id
+
+  if (!id) {
+    return res.status(400).json({ error: 'user does not exist in our db' })
+  }
+  try {
+    const result = await db.execute({
+      sql: `DELETE FROM users WHERE id = ?`,
+      args: [id],
     })
     res.status(201).send({ message: result.rows[0] })
   } catch (err) {
